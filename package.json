@@ -1,0 +1,22 @@
+{
+  "name": "wedding-planner",
+  "version": "1.0.0",
+  "description": "Wedding Planner",
+  "main": "index.ts",
+  "scripts": {
+    "start": "bun run index.ts",
+    "dev": "bun --watch send_email.ts"
+  },
+  "dependencies": {
+    "googleapis": "^132.0.0",
+    "google-auth-library": "^9.6.3",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "bun-types": "^1.0.25"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  }
+} 
