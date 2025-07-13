@@ -156,7 +156,7 @@ Content-Type: text/html; charset=UTF-8
                   
       <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1.5;text-align:left;color:#000000;"><p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;">Hello [Name],</p>
 <p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;"> </p>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;">We’re so excited to share that we’re getting married on September 20th at the Willow Gardens Pavilion, and it wouldn’t be the same without you there! Please join us for a joyful celebration of love, laughter, and dancing—cocktails begin at 4 PM, followed by dinner and dancing under the stars. Kindly let us know if you can make it by August 15th; we can’t wait to celebrate together!</p>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;">We’re so excited to share that we’re getting married on [date] at the [location], and it wouldn’t be the same without you there! Please join us for a joyful celebration of love, laughter, and dancing—cocktails begin at [time], followed by dinner and dancing under the stars. Kindly let us know if you can make it by [deadline]; we can’t wait to celebrate together!</p>
 <p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;">With love,</p>
 <p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;"><br>[Your Names]</p></div>
     
