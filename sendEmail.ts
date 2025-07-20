@@ -199,7 +199,9 @@ class GmailSender {
     /**
      * Send email using Gmail API
      */
-    public async sendEmail(templateFile: string = 'email.html.eml'): Promise<boolean> {
+    public async sendEmail(
+        templateFile: string = 'emails/email_invitation.html.eml'
+    ): Promise<boolean> {
         await this.ensureAuthentication();
 
         if (!this.gmail) {

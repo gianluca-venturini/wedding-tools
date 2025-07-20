@@ -1,3 +1,7 @@
+# Wedding Tools
+
+Suite of tools for organizing a wedding
+
 ## Sending Emails
 
 ### Setup
@@ -11,6 +15,8 @@
 
 ### Usage
 
+Edit email templates with a WYSIWYG editor e.g. https://topol.io/ and save them to the `emails` directory.
+
 ```bash
-bun run sendEmail
+bun run sendEmail <email_address>
 ```
