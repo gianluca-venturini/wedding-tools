@@ -15,9 +15,11 @@
         "predev": "npm run fix"
     },
     "dependencies": {
-        "googleapis": "^132.0.0",
+        "@types/mustache": "^4.2.6",
+        "dotenv": "^16.4.5",
         "google-auth-library": "^9.6.3",
-        "dotenv": "^16.4.5"
+        "googleapis": "^132.0.0",
+        "mustache": "^4.2.0"
     },
     "devDependencies": {
         "@types/node": "^20.11.16",

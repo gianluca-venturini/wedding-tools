@@ -1,12 +1,11 @@
-import { GoogleAuthManager, createSheetsAuth } from './authManager';
+import { GoogleAuthManager } from './authManager';
 
 export class SpreadsheetManager {
     private sheets: any = null;
     private authManager: GoogleAuthManager;
 
-    constructor(authManager?: GoogleAuthManager) {
-        // Use provided auth manager or create a Sheets-specific one
-        this.authManager = authManager || createSheetsAuth();
+    constructor(authManager: GoogleAuthManager) {
+        this.authManager = authManager;
     }
 
     /**

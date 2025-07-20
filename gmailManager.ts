@@ -1,5 +1,6 @@
 import { readFileSync, existsSync } from 'fs';
-import { GoogleAuthManager, createFullAuth } from './authManager';
+import Mustache from 'mustache';
+import { GoogleAuthManager } from './authManager';
 
 export interface EmailHeaders {
     From?: string;
@@ -17,9 +18,8 @@ export class GmailManager {
     private gmail: any = null;
     private authManager: GoogleAuthManager;
 
-    constructor(authManager?: GoogleAuthManager) {
-        // Use provided auth manager or create a Gmail-specific one
-        this.authManager = authManager || createFullAuth();
+    constructor(authManager: GoogleAuthManager) {
+        this.authManager = authManager;
     }
 
     /**
@@ -110,7 +110,8 @@ export class GmailManager {
      */
     public async sendEmail(
         toAddress: string,
-        templateFile: string = 'emails/email_invitation.html.eml'
+        templateFile: string,
+        substitutions: { [key: string]: string } = {}
     ): Promise<boolean> {
         try {
             await this.ensureGmailService();
@@ -122,12 +123,23 @@ export class GmailManager {
                 return false;
             }
 
-            const { headers, body } = parsed;
+            const { headers, body: originalBody } = parsed;
+
+            // Apply mustache substitutions to headers
+            Object.keys(headers).forEach(key => {
+                if (headers[key]) {
+                    headers[key] = Mustache.render(headers[key], substitutions);
+                }
+            });
+
+            // Apply mustache substitutions to body
+            const body = Mustache.render(originalBody, substitutions);
 
             // Override the To address with the provided parameter
             headers.To = toAddress;
 
-            // Debug: Log headers to see what we're sending
+            // Debug: Log headers and substitutions
+            console.log('Substitutions applied:', substitutions);
             console.log('Parsed headers:', headers);
             console.log('Content-Type header:', headers['Content-Type']);
 
