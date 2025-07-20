@@ -1,21 +1,3 @@
-#!/usr/bin/env bun
-/**
- * Gmail API Email Sender
- *
- * This script sends emails using the Gmail API by reading from an email template file.
- *
- * Setup Instructions:
- * 1. Install Bun: https://bun.sh/
- * 2. Install dependencies: bun install
- * 3. Enable Gmail API in Google Cloud Console
- * 4. Create OAuth 2.0 credentials and add them to your .env file
- * 5. Copy .env.example to .env and fill in your credentials
- * 6. Run the script for the first time to authorize access
- *
- * Usage:
- *     bun run sendEmail.ts
- */
-
 import { config } from 'dotenv';
 import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
