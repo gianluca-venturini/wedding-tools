@@ -153,12 +153,12 @@ export class GmailManager {
             const raw = this.createMessage(headers, body);
 
             // Debug: Log the raw message before base64 encoding
-            const decodedMessage = Buffer.from(
-                raw.replace(/-/g, '+').replace(/_/g, '/'),
-                'base64'
-            ).toString('utf8');
-            console.log('Raw email message:');
-            console.log(decodedMessage);
+            // const decodedMessage = Buffer.from(
+            //     raw.replace(/-/g, '+').replace(/_/g, '/'),
+            //     'base64'
+            // ).toString('utf8');
+            // console.log('Raw email message:');
+            // console.log(decodedMessage);
 
             // Send email
             const response = await this.gmail.users.messages.send({
