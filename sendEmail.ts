@@ -24,7 +24,7 @@ async function getRecipientInformationFromSpreadsheet(
         console.log(`🔍 Looking up recipient information for: ${recipientEmail}`);
 
         // Read all data from the sheet (columns A and C)
-        const range = `${sheetName}!A:C`;
+        const range = `${sheetName}!F:G`;
         const rows = await spreadsheetManager.readSpreadsheet(spreadsheetId, range);
 
         if (!rows || rows.length === 0) {
@@ -35,14 +35,14 @@ async function getRecipientInformationFromSpreadsheet(
         // Find the row where column A matches the recipient email
         for (let i = 0; i < rows.length; i++) {
             const row = rows[i];
-            const emailInSpreadsheet = row[0]; // Column A
-            const nameInSpreadsheet = row[1]; // Column B
+            const emailInSpreadsheet = row[0]; // Column F
+            const nameInSpreadsheet = row[1]; // Column G
 
             if (
                 emailInSpreadsheet &&
                 emailInSpreadsheet.toLowerCase().trim() === recipientEmail.toLowerCase().trim()
             ) {
-                console.log(`✅ Found recipient: ${nameInSpreadsheet || 'No name'}`);
+                console.log(`✅ Found recipient: ${nameInSpreadsheet || '<empty>'}`);
                 return {
                     recipientName: nameInSpreadsheet || null,
                     rowIndex: i + 1, // Add 1 because spreadsheet rows are 1-indexed
@@ -97,6 +97,13 @@ async function main(): Promise<void> {
         console.error(`Provided email: ${recipientEmail}`);
         process.exit(1);
     }
+    console.log(`📧 Recipient email: ${recipientEmail}`);
+
+    if (!templateFile) {
+        console.error('❌ Error: Template file is required!');
+        process.exit(1);
+    }
+    console.log(`📄 Template: ${templateFile}`);
 
     // Get spreadsheet configuration
     const spreadsheetId = process.env.SPREADSHEET_ID;
@@ -109,6 +116,9 @@ async function main(): Promise<void> {
         );
         process.exit(1);
     }
+    console.log(`📊 Spreadsheet ID: ${spreadsheetId}`);
+    console.log(`📊 Sheet List Name: ${sheetListName}`);
+    console.log(`📊 Sheet Notification Name: ${sheetNotificationName}`);
 
     // Create auth manager for both Gmail and Sheets
     const authManager = createFullAuth();
@@ -121,30 +131,25 @@ async function main(): Promise<void> {
         spreadsheetManager,
         recipientEmail,
         spreadsheetId,
-        sheetNotificationName
+        sheetListName
     );
 
-    console.log(recipientName);
-
-    console.log(`📧 Recipient: ${recipientEmail}${recipientName ? ` (${recipientName})` : ''}`);
-    if (templateFile) {
-        console.log(`📄 Template: ${templateFile}`);
-    } else {
-        console.log('📄 Template: emails/email_invitation.html.eml (default)');
+    if (!recipientName) {
+        throw new Error('Recipient name not found in spreadsheet');
     }
+    console.log(`📧 Recipient: ${recipientName}`);
 
     // Initialize Gmail sender with auth manager
     const sender = new GmailManager(authManager);
 
     // Check if we're already authenticated
     const isAuth = await sender.isAuthenticated();
-    console.log(
-        `🔐 Authentication status: ${isAuth ? '✅ Authenticated' : '❌ Not authenticated'}`
-    );
 
-    if (!recipientName) {
-        throw new Error('Recipient name not found in spreadsheet');
+    if (!isAuth) {
+        console.error('❌ Not authenticated');
+        process.exit(1);
     }
+    console.log(`🔐 Authentication status: ✅ Authenticated`);
 
     // Prepare substitutions object
     const substitutions = {
@@ -154,19 +159,17 @@ async function main(): Promise<void> {
     // Send email
     const success = await sender.sendEmail(recipientEmail, templateFile, substitutions);
 
-    if (success) {
-        console.log('\n✅ Email sent successfully!');
-        console.log(`📧 Sent to: ${recipientEmail}`);
-        // Append to spreadsheet that the email was sent (email, name, timestamp)
-        await spreadsheetManager.appendToSpreadsheet(
-            spreadsheetId,
-            `${sheetNotificationName}!A:D`,
-            [[recipientEmail, recipientName, new Date().toISOString(), templateFile]]
-        );
-    } else {
-        console.log('\n❌ Failed to send email!');
+    if (!success) {
+        console.error('❌ Failed to send email!');
         process.exit(1);
     }
+
+    console.log('\n✅ Email sent successfully!');
+    console.log(`📧 Sent to: ${recipientEmail}`);
+    // Append log to spreadsheet that the email was sent
+    await spreadsheetManager.appendToSpreadsheet(spreadsheetId, `${sheetNotificationName}!A:D`, [
+        [recipientEmail, recipientName, new Date().toISOString(), templateFile],
+    ]);
 }
 
 // Run main function
