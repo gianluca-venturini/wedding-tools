@@ -92,7 +92,7 @@ Content-Type: text/html; charset=UTF-8
           }
 
           ul, li, ol {
-            font-size: 11px;
+            font-size: 14px;
             font-family: Ubuntu, Helvetica, Arial;
           }
 
@@ -154,18 +154,16 @@ Content-Type: text/html; charset=UTF-8
               <tr>
                 <td align="left" style="font-size:0px;padding:15px 15px 15px 15px;word-break:break-word;">
                   
-      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1.5;text-align:left;color:#000000;"><h1 style="font-family: 'Cabin', sans-serif; font-size: 22px; font-weight: bold; text-align: center;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">Gianluca & Haihua</span></h1>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; text-align: center;"> </p>
-<h2 style="font-family: Helvetica, Arial, sans-serif; font-size: 17px; font-weight: bold; text-align: center;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">We're getting married!</span></h2>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; text-align: center;"> </p>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">Dear {{recipientName}},</span></p>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;"> </p>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">We’re so excited to share that we’re getting married on May 16 2026 at the Yuluxe Hotel Baoji, China.</span></p>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;"> </p>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">Please join us for a joyful celebration. We can’t wait to celebrate together!</span></p>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;"> </p>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">With love,</span></p>
-<p style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">Gianluca and Haihua</span></p></div>
+      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:16px;line-height:1.5;text-align:left;color:#000000;">
+      <h1 style="font-family: 'Cabin', sans-serif; font-size: 24px; font-weight: bold; text-align: center; margin: 0 0 25px 0; padding: 15px 0;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">We're getting married!</span></h1>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; margin: 20px 0 0 0;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">Dear {{recipientName}},</span></p>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px;"> </p>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">We're so excited to share that we're getting married on May 16 2026 at the Yuluxe Hotel Baoji, China.</span></p>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px;"> </p>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; margin: 20px 0 0 0;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">Please join us for a joyful celebration. We can't wait to celebrate together!</span></p>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px;"> </p>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; margin: 20px 0 0 0;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">With love,</span></p>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px;"><span style="color: rgb(44, 44, 44); font-family: Arial, sans-serif;">Gianluca and Haihua</span></p></div>
     
                 </td>
               </tr>
@@ -177,7 +175,7 @@ Content-Type: text/html; charset=UTF-8
         <tbody>
           <tr>
             <td align="center" bgcolor="#7F1E1D" role="presentation" style="border:none;border-radius:8px;cursor:auto;font-style:normal;mso-padding-alt:10px 20px 10px 20px;background:#e85034;" valign="middle">
-              <a href="https://gianlucahaihua.com" style="display: inline-block; background: #7F1E1D; color: #ffffff; font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-style: normal; font-weight: normal; line-height: 100%; margin: 0; text-decoration: none; text-transform: none; padding: 10px 20px 10px 20px; mso-padding-alt: 0px; border-radius: 8px;" target="_blank">
+              <a href="https://gianlucahaihua.com" style="display: inline-block; background: #7F1E1D; color: #ffffff; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-style: normal; font-weight: normal; line-height: 100%; margin: 0; text-decoration: none; text-transform: none; padding: 10px 20px 10px 20px; mso-padding-alt: 0px; border-radius: 8px;" target="_blank">
                 <span>Save The Date</span>
               </a>
             </td>
