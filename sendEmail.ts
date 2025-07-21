@@ -10,23 +10,17 @@ config();
  * Get recipient information from spreadsheet
  * @param spreadsheetManager - SpreadsheetManager instance
  * @param recipientEmail - Email to look up
- * @returns Promise with recipient information
+ * @param spreadsheetId - The ID of the spreadsheet
+ * @param sheetName - The name of the sheet
+ * @returns Promise with recipient information and row index
  */
 async function getRecipientInformationFromSpreadsheet(
     spreadsheetManager: SpreadsheetManager,
-    recipientEmail: string
-): Promise<{ recipientName: string }> {
+    recipientEmail: string,
+    spreadsheetId: string,
+    sheetName: string
+): Promise<{ recipientName: string; rowIndex: number }> {
     try {
-        const spreadsheetId = process.env.SPREADSHEET_ID;
-        const sheetName = process.env.SPREADSHEET_NOTIFICATION_NAME;
-
-        if (!spreadsheetId || !sheetName) {
-            console.error(
-                '❌ Missing required environment variables: SPREADSHEET_ID or SPREADSHEET_NOTIFICATION_NAME'
-            );
-            throw new Error('Missing required environment variables');
-        }
-
         console.log(`🔍 Looking up recipient information for: ${recipientEmail}`);
 
         // Read all data from the sheet (columns A and C)
@@ -49,7 +43,10 @@ async function getRecipientInformationFromSpreadsheet(
                 emailInSpreadsheet.toLowerCase().trim() === recipientEmail.toLowerCase().trim()
             ) {
                 console.log(`✅ Found recipient: ${nameInSpreadsheet || 'No name'}`);
-                return { recipientName: nameInSpreadsheet || null };
+                return {
+                    recipientName: nameInSpreadsheet || null,
+                    rowIndex: i + 1, // Add 1 because spreadsheet rows are 1-indexed
+                };
             }
         }
 
@@ -101,6 +98,18 @@ async function main(): Promise<void> {
         process.exit(1);
     }
 
+    // Get spreadsheet configuration
+    const spreadsheetId = process.env.SPREADSHEET_ID;
+    const sheetListName = process.env.SPREADSHEET_LIST_NAME;
+    const sheetNotificationName = process.env.SPREADSHEET_NOTIFICATION_NAME;
+
+    if (!spreadsheetId || !sheetListName || !sheetNotificationName) {
+        console.error(
+            '❌ Missing required environment variables: SPREADSHEET_ID or SPREADSHEET_LIST_NAME or SPREADSHEET_NOTIFICATION_NAME'
+        );
+        process.exit(1);
+    }
+
     // Create auth manager for both Gmail and Sheets
     const authManager = createFullAuth();
 
@@ -110,8 +119,12 @@ async function main(): Promise<void> {
     // Read recipient information from spreadsheet
     const { recipientName } = await getRecipientInformationFromSpreadsheet(
         spreadsheetManager,
-        recipientEmail
+        recipientEmail,
+        spreadsheetId,
+        sheetNotificationName
     );
+
+    console.log(recipientName);
 
     console.log(`📧 Recipient: ${recipientEmail}${recipientName ? ` (${recipientName})` : ''}`);
     if (templateFile) {
@@ -144,6 +157,12 @@ async function main(): Promise<void> {
     if (success) {
         console.log('\n✅ Email sent successfully!');
         console.log(`📧 Sent to: ${recipientEmail}`);
+        // Append to spreadsheet that the email was sent (email, name, timestamp)
+        await spreadsheetManager.appendToSpreadsheet(
+            spreadsheetId,
+            `${sheetNotificationName}!A:D`,
+            [[recipientEmail, recipientName, new Date().toISOString(), templateFile]]
+        );
     } else {
         console.log('\n❌ Failed to send email!');
         process.exit(1);
