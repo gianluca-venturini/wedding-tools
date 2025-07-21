@@ -156,6 +156,21 @@ async function main(): Promise<void> {
         recipientName: recipientName,
     };
 
+    // Ask for confirmation before sending
+    process.stdout.write(
+        `\n📧 Confirm sending email to ${recipientName} (${recipientEmail}) using ${templateFile}? (Y/n): `
+    );
+    const answer = await new Promise<string>(resolve =>
+        process.stdin.once('data', data => {
+            process.stdin.pause();
+            resolve(data.toString().trim());
+        })
+    );
+    if (answer.toLowerCase() !== 'y') {
+        console.log('❌ Email sending cancelled');
+        process.exit(0);
+    }
+
     // Send email
     const success = await sender.sendEmail(recipientEmail, templateFile, substitutions);
 
